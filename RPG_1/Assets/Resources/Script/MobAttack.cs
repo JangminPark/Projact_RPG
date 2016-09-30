@@ -17,7 +17,7 @@ public class MobAttack : MonoBehaviour {
                 playeraction.state = PLAYERSTATE.DIE;
                 playeraction.ani.SetTrigger("die");
             }
-
+            
             Debug.Log("플레이어를 공격함!!!!");
         }
     }

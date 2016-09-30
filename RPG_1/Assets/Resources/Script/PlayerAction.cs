@@ -20,6 +20,8 @@ public class PlayerAction : MonoBehaviour
     public int Damage = 20;
     public bool movestop = false;
 
+    private Rigidbody PlayerRigidbody;
+
     void Start()
     {
         ani = transform.GetComponentInChildren<Animator>();
@@ -86,6 +88,7 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.DIE:
+                movestop = true;
                 break;
         }
     }
@@ -99,5 +102,7 @@ public class PlayerAction : MonoBehaviour
     public void Defend()
     {
         ani.SetTrigger("defend");
+        PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
+        PlayerRigidbody.velocity = Vector3.right * 50f;
     }
 }

@@ -31,7 +31,7 @@ public class MobAction : MonoBehaviour {
         switch (state)
         {
             case MOBSTATE.MOVE:
-                Invoke("ProcessMove", 2f);
+                ProcessMove();
                 break;
 
             case MOBSTATE.ATTACK:
