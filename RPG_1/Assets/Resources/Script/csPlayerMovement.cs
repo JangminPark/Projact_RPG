@@ -1,0 +1,169 @@
+/*--------------------------------------------------------------------------------
+----------------------------------------------------------------------
+			Unity3D Action Game StarterKit Ver 1.3
+----------------------------------------------------------------------	
+		
+I hope this package will help you to develop basic action game using Unity3D.
+This package has been saved Unity3D ver 4.2.2f1.
+
+This package has everything you need to create a basic top-down fighting game, complete with controls, animations, enemies, fighting, pickups, levelling-up and spawn system. 
+
+Get a head start with this simple, clean and elegant starter kit!
+
+Action Game Starter Kit consists of
+- Character parts system.
+- Player's basic & range attack.
+- Auto targeting system.
+- Boss & Monster AI.
+- Pet system.
+- Item pickup for weapon change.
+- Boss & Monster spawn system.
+- Level up system.
+- PC & Mobile is supported.
+- And more.
+
+if you have any questions or suggestions, just mail me.
+My Email is insaneoops@naver.com
+----------------------------------------------------------------------------------*/
+
+using UnityEngine;
+using System.Collections;
+
+[AddComponentMenu("Insaneoops/csPlayerMovement")]
+public class csPlayerMovement : MonoBehaviour 
+{
+	//private csPlayerAttack myPlayerAttack; // Reference for player's csPlayerAttack script
+	private Transform playerTransform;
+	private Transform spriteJoystick;
+	private CharacterController character; // Reference for CharacterController // 罹먮┃??而⑦듃濡ㅻ윭.
+	private Vector3 movement = Vector3.zero; // Player's movement
+	private Vector3 tempVector;
+	private Quaternion rotateToDirection;	 
+	
+	public float playerSpeed  = 5f; // Player's default speed
+	[System.NonSerialized]
+	public bool bRotateDirection = false; // 議곗씠?ㅽ떛?대굹 ?ㅻ낫?쒖쓽 諛⑺뼢?ㅻ? ?뚮??꾨븣 洹?諛⑺뼢?쇰줈 ?뚯쟾?섍린 ?꾪빐??
+
+	private void Start () 
+	{
+		character = GetComponent<CharacterController>(); // Reference for CharacterController // Character Controller 而댄룷?뚰듃瑜?李얠쓬.	
+		playerTransform = GameObject.Find ("player").transform;
+		//myPlayerAttack = GameObject.Find ("Player").GetComponent<csPlayerAttack>(); // Reference for player's csPlayerAttack script
+		spriteJoystick = GameObject.Find ("Sprite_stick").transform;
+	}
+	
+	private void Update ()
+	{
+		if (bRotateDirection)
+			playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, rotateToDirection,11 * Time.deltaTime);
+	}
+
+	void FixedUpdate () // Update?⑥닔瑜??곌쾶 ?섎㈃ 罹먮┃?곌? ?붾뱾由? 
+	{
+		Vector3 playerVelocity = character.velocity; // Save player's volocity
+		playerVelocity = new Vector3 (playerVelocity.x, 0f, playerVelocity.z); // Ignore any vertical movement
+		float speed = playerVelocity.magnitude; // Define player's speed
+
+        if (speed > 0)
+        {
+
+        }
+
+        //if (speed > 0) // If player is moving
+        //{
+        //    if (GetComponent<Animation>().IsPlaying(csSetting.playerAttack01Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack02Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack03Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack04Animation)) // If player's animation is playerAttack01Animation or playerAttack02Animation or playerDamageAnimation
+        //    {
+        //        GetComponent<Animation>().CrossFadeQueued(csSetting.playerRun01Animation, 0.3F, QueueMode.CompleteOthers); // player's animation will be changed to playerRunAnimation
+
+        //        if (csGameManager.bIsPlayerTransformation)
+        //            if (GameObject.Find("PlayerTransform").GetComponent<Animation>().IsPlaying(csSetting.bossAttack01Animation) || GameObject.Find("PlayerTransform").GetComponent<Animation>().IsPlaying(csSetting.bossAttack02Animation))
+        //                GameObject.Find("PlayerTransform").GetComponent<Animation>().CrossFadeQueued(csSetting.bossRun01Animation, 0.3F, QueueMode.CompleteOthers);
+        //    }
+        //    else
+        //    {
+        //        GetComponent<Animation>().CrossFade(csSetting.playerRun01Animation); // player's animation will be changed to playerRunAnimation
+
+        //        if (csGameManager.bIsPlayerTransformation && GameObject.Find("PlayerTransform"))
+        //        {
+        //            GameObject.Find("PlayerTransform").GetComponent<Animation>().CrossFade(csSetting.bossRun01Animation);
+        //        }
+        //    }
+        //}
+        //else // If player isn't moving // 留뚯씪 ?뚮젅?댁뼱媛 ?吏곸씠怨??덉? ?딅떎硫?.
+        //{
+        //    if (GetComponent<Animation>().IsPlaying(csSetting.playerJumpAnimation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack01Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack02Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack03Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack04Animation)) // If player's animation is playerJumpAnimation or playerAttack01Animation or playerAttack02Animation or playerDamageAnimation
+        //    {
+        //        GetComponent<Animation>().CrossFadeQueued(csSetting.playerIdle01Animation, 0.3F, QueueMode.CompleteOthers); // player's animation will be changed to playerIdleAnimation
+
+        //        if (csGameManager.bIsPlayerTransformation)
+        //        {
+        //            if (GameObject.Find("PlayerTransform").GetComponent<Animation>().IsPlaying(csSetting.bossAttack01Animation) || GameObject.Find("PlayerTransform").GetComponent<Animation>().IsPlaying(csSetting.bossAttack02Animation))
+        //                GameObject.Find("PlayerTransform").GetComponent<Animation>().CrossFadeQueued(csSetting.bossStand01Animation, 0.3F, QueueMode.CompleteOthers);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        GetComponent<Animation>().CrossFade(csSetting.playerIdle01Animation);   // player's animation will be changed to playerIdleAnimation
+
+        //        if (csGameManager.bIsPlayerTransformation && GameObject.Find("PlayerTransform"))
+        //            GameObject.Find("PlayerTransform").GetComponent<Animation>().CrossFade(csSetting.bossStand01Animation);
+        //    }
+        //}		
+
+		movement = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		movement = playerTransform.TransformDirection (movement);
+		
+		if (spriteJoystick.localPosition.x != 0f || spriteJoystick.localPosition.y != 0f)
+		{
+			//myPlayerAttack.AllRotateFalse ();
+			tempVector = new Vector3(spriteJoystick.localPosition.x,0f,spriteJoystick.localPosition.y);
+			tempVector.Normalize();
+			
+			if(tempVector.sqrMagnitude > 0.0001)
+			{
+				rotateToDirection = Quaternion.LookRotation(tempVector);
+				bRotateDirection = true;
+			}
+		
+			movement = tempVector * playerSpeed * Time.deltaTime;
+		}
+		
+		if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+		{
+			Vector2 tempVector2 = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Debug Purpose.
+			spriteJoystick.localPosition = tempVector2 * 70f; // Debug Purpose.
+			//myPlayerAttack.AllRotateFalse ();
+			tempVector = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			tempVector.Normalize();
+			
+			if(tempVector.sqrMagnitude > 0.0001)
+			{
+				rotateToDirection = Quaternion.LookRotation(tempVector);
+				bRotateDirection = true;
+			}
+		
+			movement = tempVector * playerSpeed * Time.deltaTime;
+		}else if (Input.GetAxis("Horizontal") == 0f && Input.GetAxis("Vertical") == 0f) // Debug Purpose.		
+			spriteJoystick.localPosition = Vector2.zero; // Debug Purpose.
+
+		movement = new Vector3 (movement.x, -10 * Time.deltaTime, movement.z); // Apply gravity // 以묐젰???곸슜.	
+
+		//if (GetComponent<Animation>().IsPlaying(csSetting.playerAttack01Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack02Animation)) // If player's animation is playerAttack01Animation or playerAttack02Animation
+	 //   {  	
+		//	movement += Physics.gravity; // Reduce player speed, In attack, player can't move
+		//	movement *= Time.deltaTime;   
+		//	myPlayerAttack.AllRotateFalse ();
+
+		//	if (myPlayerAttack.selectedTarget != null) // If player find target
+		//	{
+		//		if (Vector3.Distance (playerTransform.position, myPlayerAttack.selectedTarget.transform.position) < 4) // If the distance between player and target is less than 4
+		//			myPlayerAttack.bRotateStart = true; // Player will rotate to the target // ?대룞蹂대떎 怨듦꺽???곗꽑?섍쾶 ??
+		//		else // If the distance between player and target is greater than 4
+		//			myPlayerAttack.bRotateStart = false; // No need to rotate to target
+		//	}else // If player didn't find the target to attack
+		//		myPlayerAttack.bRotateStart = false; // No need to rotate to target	
+	 //   }
+		
+		character.Move( movement ); // ?ㅼ젣濡??뚮젅?댁뼱瑜??ν빐???대룞.		
+	}	
+}

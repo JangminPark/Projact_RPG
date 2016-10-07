@@ -6,6 +6,7 @@ public enum PLAYERSTATE
     IDLE,
     RUN,
     DIE,
+    Dfend
 }
 
 public class PlayerAction : MonoBehaviour
@@ -22,6 +23,8 @@ public class PlayerAction : MonoBehaviour
 
     private Rigidbody PlayerRigidbody;
 
+    public float defendValue = 0;
+
     void Start()
     {
         ani = transform.GetComponentInChildren<Animator>();
@@ -35,13 +38,6 @@ public class PlayerAction : MonoBehaviour
             Attack();
         }
         //==================================================
-
-        //=======================방어==========================
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Defend();
-        }
-        //====================================================
 
         //=======================이동=========================
 
@@ -74,6 +70,24 @@ public class PlayerAction : MonoBehaviour
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
                 transform.rotation = Quaternion.LookRotation(Vector3.right);
             }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                state = PLAYERSTATE.Dfend;
+                transform.Translate(1f * speed * Time.deltaTime, 0, 0);
+            }
+            if (state == PLAYERSTATE.Dfend && defendValue < 3)
+            {
+                defendValue++;
+                transform.Translate(defendValue * speed * Time.deltaTime, 0, 0);
+
+                if (defendValue >= 3)
+                {
+                    defendValue = 0;
+                    state = PLAYERSTATE.IDLE;
+                }
+            }
+
         }
         //===================================================
 
@@ -90,6 +104,9 @@ public class PlayerAction : MonoBehaviour
             case PLAYERSTATE.DIE:
                 movestop = true;
                 break;
+            case PLAYERSTATE.Dfend:
+                ani.SetTrigger("defend");
+                break;
         }
     }
 
@@ -97,12 +114,5 @@ public class PlayerAction : MonoBehaviour
     {
         ani.SetTrigger("attack");
         movestop = true;
-    }
-
-    public void Defend()
-    {
-        ani.SetTrigger("defend");
-        PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
-        PlayerRigidbody.velocity = Vector3.right * 50f;
     }
 }

@@ -5,6 +5,7 @@ public class PlayerAttack : MonoBehaviour {
 
     public PlayerAction playeraction;
     public MobAction mobaction;
+    public GameObject player;
 
     void OnTriggerEnter(Collider col)
     {

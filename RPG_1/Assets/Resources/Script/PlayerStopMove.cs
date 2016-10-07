@@ -13,12 +13,12 @@ public class PlayerStopMove : MonoBehaviour {
 
     public void ColliderOn()
     {
-        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = true;
+        gameObject.GetComponentInChildren<SphereCollider>().enabled = true;
     }
 
     public void ColliderOff()
     {
-        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+        gameObject.GetComponentInChildren<SphereCollider>().enabled = false;
     }
 
 }
