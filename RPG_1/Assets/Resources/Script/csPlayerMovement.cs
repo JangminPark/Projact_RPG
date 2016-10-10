@@ -38,14 +38,16 @@ public class csPlayerMovement : MonoBehaviour
 	private CharacterController character; // Reference for CharacterController // 罹먮┃??而⑦듃濡ㅻ윭.
 	private Vector3 movement = Vector3.zero; // Player's movement
 	private Vector3 tempVector;
-	private Quaternion rotateToDirection;	 
+	private Quaternion rotateToDirection;
+    private Animator ani;	 
 	
-	public float playerSpeed  = 5f; // Player's default speed
+	public float playerSpeed  = 10f; // Player's default speed
 	[System.NonSerialized]
-	public bool bRotateDirection = false; // 議곗씠?ㅽ떛?대굹 ?ㅻ낫?쒖쓽 諛⑺뼢?ㅻ? ?뚮??꾨븣 洹?諛⑺뼢?쇰줈 ?뚯쟾?섍린 ?꾪빐??
+	public bool bRotateDirection = false;
 
 	private void Start () 
 	{
+        ani = transform.GetComponentInChildren<Animator>();
 		character = GetComponent<CharacterController>(); // Reference for CharacterController // Character Controller 而댄룷?뚰듃瑜?李얠쓬.	
 		playerTransform = GameObject.Find ("player").transform;
 		//myPlayerAttack = GameObject.Find ("Player").GetComponent<csPlayerAttack>(); // Reference for player's csPlayerAttack script
@@ -58,16 +60,11 @@ public class csPlayerMovement : MonoBehaviour
 			playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, rotateToDirection,11 * Time.deltaTime);
 	}
 
-	void FixedUpdate () // Update?⑥닔瑜??곌쾶 ?섎㈃ 罹먮┃?곌? ?붾뱾由? 
+	void FixedUpdate ()
 	{
 		Vector3 playerVelocity = character.velocity; // Save player's volocity
 		playerVelocity = new Vector3 (playerVelocity.x, 0f, playerVelocity.z); // Ignore any vertical movement
 		float speed = playerVelocity.magnitude; // Define player's speed
-
-        if (speed > 0)
-        {
-
-        }
 
         //if (speed > 0) // If player is moving
         //{
@@ -89,7 +86,7 @@ public class csPlayerMovement : MonoBehaviour
         //        }
         //    }
         //}
-        //else // If player isn't moving // 留뚯씪 ?뚮젅?댁뼱媛 ?吏곸씠怨??덉? ?딅떎硫?.
+        //else // If player isn't moving
         //{
         //    if (GetComponent<Animation>().IsPlaying(csSetting.playerJumpAnimation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack01Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack02Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack03Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack04Animation)) // If player's animation is playerJumpAnimation or playerAttack01Animation or playerAttack02Animation or playerDamageAnimation
         //    {
@@ -146,7 +143,7 @@ public class csPlayerMovement : MonoBehaviour
 		}else if (Input.GetAxis("Horizontal") == 0f && Input.GetAxis("Vertical") == 0f) // Debug Purpose.		
 			spriteJoystick.localPosition = Vector2.zero; // Debug Purpose.
 
-		movement = new Vector3 (movement.x, -10 * Time.deltaTime, movement.z); // Apply gravity // 以묐젰???곸슜.	
+		movement = new Vector3 (movement.x, -10 * Time.deltaTime, movement.z); // Apply gravity
 
 		//if (GetComponent<Animation>().IsPlaying(csSetting.playerAttack01Animation) || GetComponent<Animation>().IsPlaying(csSetting.playerAttack02Animation)) // If player's animation is playerAttack01Animation or playerAttack02Animation
 	 //   {  	
@@ -157,13 +154,13 @@ public class csPlayerMovement : MonoBehaviour
 		//	if (myPlayerAttack.selectedTarget != null) // If player find target
 		//	{
 		//		if (Vector3.Distance (playerTransform.position, myPlayerAttack.selectedTarget.transform.position) < 4) // If the distance between player and target is less than 4
-		//			myPlayerAttack.bRotateStart = true; // Player will rotate to the target // ?대룞蹂대떎 怨듦꺽???곗꽑?섍쾶 ??
+		//			myPlayerAttack.bRotateStart = true; // Player will rotate to the target
 		//		else // If the distance between player and target is greater than 4
 		//			myPlayerAttack.bRotateStart = false; // No need to rotate to target
 		//	}else // If player didn't find the target to attack
 		//		myPlayerAttack.bRotateStart = false; // No need to rotate to target	
 	 //   }
 		
-		character.Move( movement ); // ?ㅼ젣濡??뚮젅?댁뼱瑜??ν빐???대룞.		
+		character.Move( movement );
 	}	
 }

@@ -42,6 +42,7 @@ public class csJoystick : MonoBehaviour
 	private Vector2 mousePos;
 	private bool bIsTouched = false;
 	private float offsetValue = 70f;
+    public Animator ani;
 
 	private void Start () 
 	{
@@ -97,8 +98,9 @@ public class csJoystick : MonoBehaviour
 				if (Physics.Raycast(ray, out hit, Mathf.Infinity))
 				{	
 					if (hit.transform.tag == "Joystick")	
-					{				
-						mousePos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+					{
+                        ani.SetBool("run", true);
+                        mousePos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 						
 						if(!bIsTouched)
 							bIsTouched = true;
@@ -119,6 +121,7 @@ public class csJoystick : MonoBehaviour
 				if(bIsTouched)
 				{
 					bIsTouched = false;
+                    ani.SetBool("run", false);
 					joystickOffset = Vector2.zero;
 					spriteJoystick.localPosition = Vector3.zero;
 				}
