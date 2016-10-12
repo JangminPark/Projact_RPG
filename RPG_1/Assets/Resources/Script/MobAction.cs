@@ -22,7 +22,7 @@ public class MobAction : MonoBehaviour {
     public bool movestop = false;
 
 	void Start () {
-        state = MOBSTATE.MOVE;
+        state = MOBSTATE.IDLE;
 
         ani = transform.GetComponentInChildren<Animator>();
 	}
@@ -30,16 +30,22 @@ public class MobAction : MonoBehaviour {
 	void Update () {
         switch (state)
         {
+            case MOBSTATE.IDLE:
+                //플레이어와 몬스터 사이의 거리가 10보다 작으면 실행
+                if (Vector3.Distance(player.transform.position, transform.position) < 10f)
+                {
+                    state = MOBSTATE.MOVE;
+                }
+                break;
+
             case MOBSTATE.MOVE:
                 ProcessMove();
                 break;
 
             case MOBSTATE.ATTACK:
-                ProcessAttack();
                 break;
 
             case MOBSTATE.DAMAGE:
-                ProcessDamage();
                 break;
 
             case MOBSTATE.DIE:
@@ -47,7 +53,7 @@ public class MobAction : MonoBehaviour {
         }
 	}
 
-    //플레이어를 보고 따라가게 만든다
+    //이동시키는 함수
     void ProcessMove()
     {
         if (movestop == false)
@@ -55,38 +61,58 @@ public class MobAction : MonoBehaviour {
             Vector3 height = player.transform.position;
             height.y = 0f;
             ani.SetBool("run", true);
-            float speed = 5f;
+            float speed = 3f;
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            transform.LookAt(height);
+            transform.LookAt(height);       //플레이어를 바라보게한다
+
+            if (Vector3.Distance(player.transform.position, transform.position) < 3f)
+            {
+                state = MOBSTATE.ATTACK;
+                Attack();
+            }
         }
     }
 
-    void ProcessAttack()
+    void Attack()
     {
         ani.SetTrigger("attack");
         movestop = true;
+
+        if (Vector3.Distance(player.transform.position, transform.position) > 2f)
+        {
+            state = MOBSTATE.MOVE;
+            movestop = false;
+            CancelInvoke("Attack");
+            ani.ResetTrigger("attack");
+            return;
+        }
+
+        Invoke("Attack", 2f);
     }
 
-    void ProcessDamage()
-    {
 
+    void Gomove()
+    {
+        state = MOBSTATE.MOVE;
     }
 
     //플레이어와 부딪쳤을때  행동
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.transform.tag == "Player")
-        {
-            state = MOBSTATE.ATTACK;
-        }
-    }
+    //void OnTriggerEnter(Collider col)
+    //{
+    //    if (col.transform.tag == "Player")
+    //    {
+    //        state = MOBSTATE.ATTACK;
+    //        ani.SetTrigger("attack");
+    //        movestop = true;
+    //    }
+    //}
 
     //콜리더 밖으로 나갓을때
-    void OnCollisionExit(Collision col)
-    {
-        if (col.transform.tag == "Player")
-        {
-            state = MOBSTATE.MOVE;
-        }
-    }
+    //void OnTriggerExit(Collider col)
+    //{
+    //    if (col.transform.tag == "Player")
+    //    {
+    //        state = MOBSTATE.IDLE;
+    //    }
+    //}
 }

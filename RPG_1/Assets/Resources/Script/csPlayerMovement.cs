@@ -48,7 +48,7 @@ public class csPlayerMovement : MonoBehaviour
 	private void Start () 
 	{
         ani = transform.GetComponentInChildren<Animator>();
-		character = GetComponent<CharacterController>(); // Reference for CharacterController // Character Controller 而댄룷?뚰듃瑜?李얠쓬.	
+		character = GetComponent<CharacterController>(); // Reference for CharacterController
 		playerTransform = GameObject.Find ("player").transform;
 		//myPlayerAttack = GameObject.Find ("Player").GetComponent<csPlayerAttack>(); // Reference for player's csPlayerAttack script
 		spriteJoystick = GameObject.Find ("Sprite_stick").transform;

@@ -8,7 +8,7 @@ public class MobAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player")
+        if (col.transform.tag == "Player")
         {
             playeraction.Hp -= mobaction.Damage;
 
