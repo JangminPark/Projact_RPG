@@ -21,8 +21,6 @@ public class PlayerAction : MonoBehaviour
     public int Damage = 20;
     public bool movestop = false;
 
-    private Rigidbody PlayerRigidbody;
-
     public float defendValue = 0;
 
     void Start()
