@@ -5,8 +5,9 @@ public enum PLAYERSTATE
 {
     IDLE,
     RUN,
+    ATTACK,
+    SKILL,
     DIE,
-    Dfend
 }
 
 public class PlayerAction : MonoBehaviour
@@ -30,87 +31,57 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        //===================공격============================
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
         }
-        //==================================================
-
-        //=======================이동=========================
-
-        if (movestop == false)
+        if (Input.GetKey(KeyCode.Z))
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                state = PLAYERSTATE.RUN;
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.back);
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                state = PLAYERSTATE.RUN;
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                state = PLAYERSTATE.RUN;
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.left);
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                state = PLAYERSTATE.RUN;
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.right);
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                state = PLAYERSTATE.Dfend;
-                transform.Translate(1f * speed * Time.deltaTime, 0, 0);
-            }
-            if (state == PLAYERSTATE.Dfend && defendValue < 3)
-            {
-                defendValue++;
-                transform.Translate(defendValue * speed * Time.deltaTime, 0, 0);
-
-                if (defendValue >= 3)
-                {
-                    defendValue = 0;
-                    state = PLAYERSTATE.IDLE;
-                }
-            }
-
+            Skill();
         }
-        //===================================================
 
         switch (state)
         {
             case PLAYERSTATE.IDLE:
-                ani.SetBool("run", false);
                 break;
 
             case PLAYERSTATE.RUN:
-                ani.SetBool("run", true);
+                break;
+
+            case PLAYERSTATE.ATTACK:
+                break;
+
+            case PLAYERSTATE.SKILL:
                 break;
 
             case PLAYERSTATE.DIE:
-                movestop = true;
-                break;
-            case PLAYERSTATE.Dfend:
-                ani.SetTrigger("defend");
                 break;
         }
     }
 
     public void Attack()
     {
+        state = PLAYERSTATE.ATTACK;
         ani.SetTrigger("attack");
         movestop = true;
+    }
+
+    public void Skill()
+    {
+        state = PLAYERSTATE.SKILL;
+        ani.SetTrigger("defend");
+        transform.Translate(1f * speed * Time.deltaTime, 0, 0);
+
+        if (state == PLAYERSTATE.SKILL && defendValue < 3)
+        {
+            defendValue++;
+            transform.Translate(defendValue * speed * Time.deltaTime, 0, 0);
+
+            if (defendValue >= 3)
+            {
+                defendValue = 0;
+                state = PLAYERSTATE.IDLE;
+            }
+        }
     }
 }
