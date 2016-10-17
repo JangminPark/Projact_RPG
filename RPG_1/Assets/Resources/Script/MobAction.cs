@@ -61,6 +61,7 @@ public class MobAction : MonoBehaviour {
             Vector3 height = player.transform.position;
             height.y = 0f;
             ani.SetBool("run", true);
+            
             float speed = 3f;
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             transform.LookAt(height);       //플레이어를 바라보게한다

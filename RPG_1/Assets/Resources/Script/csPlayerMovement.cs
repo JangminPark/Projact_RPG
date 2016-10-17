@@ -37,8 +37,8 @@ public class csPlayerMovement : MonoBehaviour
 	private Transform spriteJoystick;
 	private CharacterController character; // Reference for CharacterController // 罹먮┃??而⑦듃濡ㅻ윭.
 	private Vector3 movement = Vector3.zero; // Player's movement
-	private Vector3 tempVector;
-	private Quaternion rotateToDirection;
+	public Vector3 tempVector;
+	public Quaternion rotateToDirection;
     private Animator ani;	 
 	
 	public float playerSpeed  = 10f; // Player's default speed
