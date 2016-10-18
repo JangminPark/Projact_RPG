@@ -15,6 +15,7 @@ public class PlayerAction : MonoBehaviour
 
     public PLAYERSTATE state = PLAYERSTATE.IDLE;
 
+    public GameObject mob;
     public Animator ani;
 
     public float speed = 10;
