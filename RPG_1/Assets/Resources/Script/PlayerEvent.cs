@@ -3,14 +3,32 @@ using System.Collections;
 
 public class PlayerEvent : MonoBehaviour {
 
-    public GameObject Player;
+    public GameObject player;
+    public GameObject sword;
 
-	public void LastAttack()
+	public IEnumerator LastAttack()
     {
-        GameObject wave = (GameObject)Resources.Load("Prefab/Effect/Shockwave");
-        if (wave != null)
+        GameObject obj = (GameObject)Resources.Load("Prefab/Effect/Shockwave");
+        if (obj != null)
         {
-            Instantiate(wave, Player.transform.position + Vector3.up * 1f + Player.transform.forward*5f, Quaternion.LookRotation(Player.transform.forward));
+            GameObject wave = (GameObject)Instantiate(obj, player.transform.position + Vector3.up * 1f + player.transform.forward*8f, Quaternion.LookRotation(player.transform.forward));
+            yield return new WaitForSeconds(1f);
+            Destroy(wave);
         }
+    }
+
+    public void LastDamage()
+    {
+        player.GetComponent<PlayerAction>().state = PLAYERSTATE.LAST_ATTACK;
+    }
+
+    public void Oncollider()
+    {
+        sword.GetComponent<Collider>().enabled = true;
+    }
+
+    public void Offcollider()
+    {
+        sword.GetComponent<Collider>().enabled = false;
     }
 }

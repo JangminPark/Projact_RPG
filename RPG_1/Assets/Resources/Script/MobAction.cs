@@ -12,12 +12,16 @@ public enum MOBSTATE
 
 public class MobAction : MonoBehaviour {
 
-    public GameObject player;
-    public Animator ani;
     public MOBSTATE state = MOBSTATE.IDLE;
 
-    public int Hp = 100;
-    public int Damage = 5;
+    public GameObject player;
+    public Animator ani;
+    
+
+    public int hp = 100;
+    public int damage = 5;
+
+    public float timer;
 
     public bool movestop = false;
 
@@ -28,6 +32,9 @@ public class MobAction : MonoBehaviour {
 	}
 	
 	void Update () {
+        
+        timer = Time.deltaTime;
+
         switch (state)
         {
             case MOBSTATE.IDLE:
@@ -91,29 +98,21 @@ public class MobAction : MonoBehaviour {
         Invoke("Attack", 2f);
     }
 
-
     void Gomove()
     {
         state = MOBSTATE.MOVE;
     }
 
-    //플레이어와 부딪쳤을때  행동
-    //void OnTriggerEnter(Collider col)
-    //{
-    //    if (col.transform.tag == "Player")
-    //    {
-    //        state = MOBSTATE.ATTACK;
-    //        ani.SetTrigger("attack");
-    //        movestop = true;
-    //    }
-    //}
-
-    //콜리더 밖으로 나갓을때
-    //void OnTriggerExit(Collider col)
-    //{
-    //    if (col.transform.tag == "Player")
-    //    {
-    //        state = MOBSTATE.IDLE;
-    //    }
-    //}
+    void OnTriggerEnter(Collider col)
+    {
+        //if (col.tag == "Player")
+        //{
+        //    timer = 0f;
+        //    player.GetComponent<PlayerAction>().Damage = 0;
+        //    if (timer >= 1f)
+        //    {
+        //        player.GetComponent<PlayerAction>().Damage = 20;
+        //    }
+        //}
+    }
 }

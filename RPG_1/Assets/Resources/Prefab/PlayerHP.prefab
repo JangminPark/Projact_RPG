@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011910780184}
   - 114: {fileID: 114000012239582316}
   m_Layer: 8
-  m_Name: Sub Unit Frame
+  m_Name: PlayerHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

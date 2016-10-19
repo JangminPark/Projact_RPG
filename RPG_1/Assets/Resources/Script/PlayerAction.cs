@@ -6,6 +6,7 @@ public enum PLAYERSTATE
     IDLE,
     RUN,
     ATTACK,
+    LAST_ATTACK,
     SKILL,
     DIE,
 }
@@ -20,8 +21,7 @@ public class PlayerAction : MonoBehaviour
 
     public float speed = 10;
     public int Hp = 100;
-    public int Damage = 20;
-    public bool movestop = false;
+    public int Damage = 0;
 
     public float defendValue = 0;
 
@@ -50,6 +50,11 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.ATTACK:
+                Attack();
+                break;
+
+            case PLAYERSTATE.LAST_ATTACK:
+                Last_Attack();
                 break;
 
             case PLAYERSTATE.SKILL:
@@ -63,8 +68,14 @@ public class PlayerAction : MonoBehaviour
     public void Attack()
     {
         state = PLAYERSTATE.ATTACK;
+        Damage = 20;
         ani.SetTrigger("attack");
-        movestop = true;
+    }
+
+    public void Last_Attack()
+    {
+        state = PLAYERSTATE.LAST_ATTACK;
+        Damage = 40;
     }
 
     public void Skill()
