@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum MOBSTATE
 {
@@ -14,26 +15,23 @@ public class MobAction : MonoBehaviour {
 
     public MOBSTATE state = MOBSTATE.IDLE;
 
-    public GameObject player;
+    private GameObject player;
+
     public Animator ani;
-    
 
     public int hp = 100;
     public int damage = 5;
-
-    public float timer;
 
     public bool movestop = false;
 
 	void Start () {
         state = MOBSTATE.IDLE;
-
+        player = GameObject.Find("player");
         ani = transform.GetComponentInChildren<Animator>();
-	}
+
+    }
 	
 	void Update () {
-        
-        timer = Time.deltaTime;
 
         switch (state)
         {
@@ -56,6 +54,7 @@ public class MobAction : MonoBehaviour {
                 break;
 
             case MOBSTATE.DIE:
+                ProcessDie();
                 break;
         }
 	}
@@ -76,12 +75,16 @@ public class MobAction : MonoBehaviour {
             if (Vector3.Distance(player.transform.position, transform.position) < 3f)
             {
                 state = MOBSTATE.ATTACK;
-                Attack();
+                ProcessAttack();
+            }
+            if (hp <= 0)
+            {
+                state = MOBSTATE.DIE;
             }
         }
     }
 
-    void Attack()
+    void ProcessAttack()
     {
         ani.SetTrigger("attack");
         movestop = true;
@@ -90,29 +93,24 @@ public class MobAction : MonoBehaviour {
         {
             state = MOBSTATE.MOVE;
             movestop = false;
-            CancelInvoke("Attack");
+            CancelInvoke("ProcessAttack");
             ani.ResetTrigger("attack");
             return;
         }
 
-        Invoke("Attack", 2f);
+        Invoke("ProcessAttack", 2f);
     }
 
-    void Gomove()
+    void ProcessDie()
     {
-        state = MOBSTATE.MOVE;
+        movestop = true;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        //if (col.tag == "Player")
-        //{
-        //    timer = 0f;
-        //    player.GetComponent<PlayerAction>().Damage = 0;
-        //    if (timer >= 1f)
-        //    {
-        //        player.GetComponent<PlayerAction>().Damage = 20;
-        //    }
-        //}
+        if (col.tag == "Mob")
+        {
+            
+        }
     }
 }

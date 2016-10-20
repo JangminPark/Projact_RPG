@@ -23,7 +23,7 @@ public class PlayerAction : MonoBehaviour
     public int Hp = 100;
     public int Damage = 0;
 
-    public float defendValue = 0;
+    public bool Dashcheck = false;
 
     void Start()
     {
@@ -32,6 +32,13 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
+        //---------------------------스킬 사용시 앞으로 나가게한다----------------------
+        if (Dashcheck == true)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * 30f);
+        }
+        //------------------------------------------------------------------------------
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
@@ -50,7 +57,6 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.ATTACK:
-                Attack();
                 break;
 
             case PLAYERSTATE.LAST_ATTACK:
@@ -82,18 +88,6 @@ public class PlayerAction : MonoBehaviour
     {
         state = PLAYERSTATE.SKILL;
         ani.SetTrigger("defend");
-        transform.Translate(1f * speed * Time.deltaTime, 0, 0);
-
-        if (state == PLAYERSTATE.SKILL && defendValue < 3)
-        {
-            defendValue++;
-            transform.Translate(defendValue * speed * Time.deltaTime, 0, 0);
-
-            if (defendValue >= 3)
-            {
-                defendValue = 0;
-                state = PLAYERSTATE.IDLE;
-            }
-        }
+        Damage = 60;
     }
 }
