@@ -8,6 +8,8 @@ public class PlayerEvent : MonoBehaviour {
     public GameObject shield;
     public Camera mainCamera;
     public GameObject uicamera;
+    public Light directionalLight;
+    public GameObject spotLight;
 
 	public IEnumerator LastAttack()
     {
@@ -37,8 +39,11 @@ public class PlayerEvent : MonoBehaviour {
 
     public IEnumerator SkillStart()
     {
+        directionalLight.color = Color.black;
+        mainCamera.GetComponent<CameraController>().skillTime = 0.5f;
         mainCamera.GetComponent<CameraController>().SkillOn = true;
         uicamera.SetActive(false);
+        spotLight.SetActive(true);
         GameObject obj=(GameObject)Resources.Load("Prefab/Effect/Heal");
         if (obj != null)
         {
@@ -54,6 +59,7 @@ public class PlayerEvent : MonoBehaviour {
         player.GetComponent<PlayerAction>().Dashcheck = true;
         shield.GetComponent<Collider>().enabled = true;
         mainCamera.GetComponent<CameraController>().SkillOn = false;
+        directionalLight.color = Color.white;
 
         GameObject obj = (GameObject)Resources.Load("Prefab/Effect/RocketFire");
         if (obj != null)
@@ -70,5 +76,6 @@ public class PlayerEvent : MonoBehaviour {
         player.GetComponent<PlayerAction>().Dashcheck = false;
         shield.GetComponent<Collider>().enabled = false;
         uicamera.SetActive(true);
+        spotLight.SetActive(false);
     }
 }

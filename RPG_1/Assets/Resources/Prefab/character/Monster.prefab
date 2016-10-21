@@ -1809,7 +1809,6 @@ MonoBehaviour:
   ani: {fileID: 0}
   hp: 100
   damage: 5
-  timer: 0
   movestop: 0
 --- !u!135 &135000010936520022
 SphereCollider:

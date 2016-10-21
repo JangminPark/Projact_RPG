@@ -106,11 +106,14 @@ public class MobAction : MonoBehaviour {
         movestop = true;
     }
 
+
+    public void SetStat(int statHp,int statAttack)
+    {
+        statHp = hp;
+        statAttack = damage;
+    }
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Mob")
-        {
-            
-        }
+        
     }
 }

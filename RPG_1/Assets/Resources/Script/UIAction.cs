@@ -17,6 +17,6 @@ public class UIAction : MonoBehaviour {
     void Update()
     {
         playerHP.fillAmount = player.GetComponent<PlayerAction>().Hp * 0.01f;       //UI 플레이어 체력
-        mobHP.fillAmount = mob.GetComponent<MobAction>().hp * 0.01f;                //UI 몬스터 체력
+        //mobHP.fillAmount = mob.GetComponent<MobAction>().hp * 0.01f;                //UI 몬스터 체력
     }
 }
