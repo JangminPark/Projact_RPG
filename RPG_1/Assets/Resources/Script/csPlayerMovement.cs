@@ -112,6 +112,8 @@ public class csPlayerMovement : MonoBehaviour
 		
 		if (spriteJoystick.localPosition.x != 0f || spriteJoystick.localPosition.y != 0f)
 		{
+            gameObject.GetComponent<PlayerAction>().state = PLAYERSTATE.RUN;        //조이스틱이 눌리면 런상태로
+
 			//myPlayerAttack.AllRotateFalse ();
 			tempVector = new Vector3(spriteJoystick.localPosition.x,0f,spriteJoystick.localPosition.y);
 			tempVector.Normalize();

@@ -33,11 +33,13 @@ public class MobAction : MonoBehaviour {
 	
 	void Update () {
 
+        gameObject.GetComponent<Collider>().isTrigger = true;
+
         switch (state)
         {
             case MOBSTATE.IDLE:
                 //플레이어와 몬스터 사이의 거리가 10보다 작으면 실행
-                if (Vector3.Distance(player.transform.position, transform.position) < 10f)
+                if (Vector3.Distance(player.transform.position, transform.position) < 100f)
                 {
                     state = MOBSTATE.MOVE;
                 }
@@ -114,6 +116,9 @@ public class MobAction : MonoBehaviour {
     }
     void OnTriggerEnter(Collider col)
     {
-        
+        if (col.tag == "Mob")
+        {
+            gameObject.GetComponent<Collider>().isTrigger = false;
+        }
     }
 }

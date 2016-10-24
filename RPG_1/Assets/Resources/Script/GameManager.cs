@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> respawns = new List<GameObject>();
 
     public int wave = 0;
-    public int mobCount = 10;
+    public int mobCount = 0;
 
     public float baseMobHP = 0f;
     public float baseMobAttack = 0f;
@@ -19,8 +19,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator CreateMob()
     {
-        int resCount = Random.Range(0, respawns.Count);
-        GameObject posObj = respawns[resCount];
+        mobCount = 10;
 
         GameObject resmob = (GameObject)Resources.Load("Prefab/Character/Monster");
         if (resmob == null)
@@ -28,7 +27,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("몬스터를 불러올 수 없습니다");
             yield return null;
         }
-        GameObject mob = Instantiate(resmob);
-        mob.transform.position = respawns[resCount].transform.position;
+        for (int i = 0; i < mobCount; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            GameObject mob = Instantiate(resmob);
+            int resCount = Random.Range(0, respawns.Count);
+            mob.transform.position = respawns[resCount].transform.position;
+
+            createMobs.Add(mob);
+        }
     }
 }

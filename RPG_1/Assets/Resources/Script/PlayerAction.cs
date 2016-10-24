@@ -54,6 +54,7 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.RUN:
+                gameObject.GetComponent<CharacterController>().isTrigger = false;
                 break;
 
             case PLAYERSTATE.ATTACK:
@@ -89,5 +90,14 @@ public class PlayerAction : MonoBehaviour
         state = PLAYERSTATE.SKILL;
         ani.SetTrigger("defend");
         Damage = 60;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Mob")
+        {
+            gameObject.GetComponent<CharacterController>().isTrigger = true;
+            Debug.Log("오크와 붙음!!!");
+        }
     }
 }
