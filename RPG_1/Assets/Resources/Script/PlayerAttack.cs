@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Attack : MonoBehaviour {
+public class PlayerAttack : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
     {

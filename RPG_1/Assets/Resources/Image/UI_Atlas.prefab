@@ -66,22 +66,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: Icon_Fireball2
-    x: 183
-    y: 383
-    width: 64
-    height: 64
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: Icon_Shield
-    x: 172
-    y: 269
+    x: 183
+    y: 387
     width: 60
     height: 60
     borderLeft: 0
@@ -93,8 +80,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Icon_Sword
-    x: 0
-    y: 182
+    x: 172
+    y: 269
     width: 59
     height: 60
     borderLeft: 0
@@ -123,19 +110,6 @@ MonoBehaviour:
     y: 330
     width: 182
     height: 182
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Stat_AttackSpeed
-    x: 183
-    y: 369
-    width: 15
-    height: 13
     borderLeft: 0
     borderRight: 0
     borderTop: 0

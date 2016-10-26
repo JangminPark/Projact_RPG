@@ -8,6 +8,7 @@ public enum PLAYERSTATE
     ATTACK,
     LAST_ATTACK,
     SKILL,
+    CYCYLON,
     DIE,
 }
 
@@ -19,7 +20,6 @@ public class PlayerAction : MonoBehaviour
     public GameObject mob;
     public Animator ani;
 
-    public float speed = 10;
     public int Hp = 100;
     public int Damage = 0;
 
@@ -54,7 +54,6 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.RUN:
-                gameObject.GetComponent<CharacterController>().isTrigger = false;
                 break;
 
             case PLAYERSTATE.ATTACK:
@@ -65,6 +64,9 @@ public class PlayerAction : MonoBehaviour
                 break;
 
             case PLAYERSTATE.SKILL:
+                break;
+
+            case PLAYERSTATE.CYCYLON:
                 break;
 
             case PLAYERSTATE.DIE:
@@ -92,12 +94,10 @@ public class PlayerAction : MonoBehaviour
         Damage = 60;
     }
 
-    void OnTriggerEnter(Collider col)
+    public void Cyclons()
     {
-        if (col.tag == "Mob")
-        {
-            gameObject.GetComponent<CharacterController>().isTrigger = true;
-            Debug.Log("오크와 붙음!!!");
-        }
+        state = PLAYERSTATE.CYCYLON;
+        ani.SetTrigger("spin");
+        Damage = 100;
     }
 }

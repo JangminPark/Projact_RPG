@@ -78,4 +78,25 @@ public class PlayerEvent : MonoBehaviour {
         uicamera.SetActive(true);
         spotLight.SetActive(false);
     }
+
+    public IEnumerator CycloneOn()
+    {
+        player.GetComponent<PlayerAction>().state = PLAYERSTATE.CYCYLON;
+
+        GameObject obj = (GameObject)Resources.Load("Prefab/Effect/Cyclone");
+        if (obj != null)
+        {
+            GameObject cyclon = (GameObject)Instantiate(obj, player.transform.position, Quaternion.LookRotation(player.transform.forward));
+            yield return new WaitForSeconds(5f);
+            Destroy(cyclon);
+        }
+    }
+
+    public void CycloneOff()
+    {
+        uicamera.SetActive(true);
+        spotLight.SetActive(false);
+        mainCamera.GetComponent<CameraController>().SkillOn = false;
+        directionalLight.color = Color.white;
+    }
 }

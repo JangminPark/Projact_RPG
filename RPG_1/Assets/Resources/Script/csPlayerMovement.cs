@@ -123,8 +123,8 @@ public class csPlayerMovement : MonoBehaviour
 				rotateToDirection = Quaternion.LookRotation(tempVector);
 				bRotateDirection = true;
 			}
-		
-			movement = tempVector * playerSpeed * Time.deltaTime;
+
+            movement = tempVector * playerSpeed * Time.deltaTime * 1.5f;
 		}
 		
 		if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)

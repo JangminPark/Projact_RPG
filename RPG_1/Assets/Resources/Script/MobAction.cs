@@ -16,10 +16,12 @@ public class MobAction : MonoBehaviour {
     public MOBSTATE state = MOBSTATE.IDLE;
 
     private GameObject player;
+    public GameObject overlap;
 
     public Animator ani;
 
-    public int hp = 100;
+    public string name = "오크전사";
+    public float hp = 100;
     public int damage = 5;
 
     public bool movestop = false;
@@ -32,8 +34,6 @@ public class MobAction : MonoBehaviour {
     }
 	
 	void Update () {
-
-        gameObject.GetComponent<Collider>().isTrigger = true;
 
         switch (state)
         {
@@ -70,7 +70,7 @@ public class MobAction : MonoBehaviour {
             height.y = 0f;
             ani.SetBool("run", true);
             
-            float speed = 3f;
+            float speed = 5f;
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             transform.LookAt(height);       //플레이어를 바라보게한다
 
@@ -106,19 +106,15 @@ public class MobAction : MonoBehaviour {
     void ProcessDie()
     {
         movestop = true;
+        overlap.GetComponent<Collider>().enabled = false;
+        Destroy(gameObject.GetComponent<Rigidbody>());
     }
 
 
-    public void SetStat(int statHp,int statAttack)
+    public void SetStat(float statHp,int statdamage,string statname)
     {
         statHp = hp;
-        statAttack = damage;
-    }
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "Mob")
-        {
-            gameObject.GetComponent<Collider>().isTrigger = false;
-        }
+        statdamage = damage;
+        statname = name;
     }
 }
