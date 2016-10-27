@@ -32,12 +32,11 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        //---------------------------스킬 사용시 앞으로 나가게한다----------------------
+        //스킬 사용시 앞으로 나가게한다
         if (Dashcheck == true)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * 30f);
         }
-        //------------------------------------------------------------------------------
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -98,6 +97,6 @@ public class PlayerAction : MonoBehaviour
     {
         state = PLAYERSTATE.CYCYLON;
         ani.SetTrigger("spin");
-        Damage = 100;
+        Damage = 20;
     }
 }

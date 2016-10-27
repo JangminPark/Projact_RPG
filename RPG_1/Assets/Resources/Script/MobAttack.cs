@@ -9,7 +9,7 @@ public class MobAttack : MonoBehaviour
         {
             col.gameObject.GetComponent<PlayerAction>().Hp -= gameObject.GetComponentInParent<MobAction>().damage;
 
-            Debug.Log("" + col.gameObject.GetComponent<PlayerAction>().Hp + "가 남았습니다");
+            Debug.Log("플레이어의 HP가 " + col.gameObject.GetComponent<PlayerAction>().Hp + "남았습니다");
         }
     }
 }

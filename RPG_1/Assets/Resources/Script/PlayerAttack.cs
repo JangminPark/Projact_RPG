@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour {
         if (col.tag == "Mob")
         {
             GameObject player = GameObject.Find("player");
+            GameObject gamemanager = GameObject.Find("GameManager");
 
             col.gameObject.GetComponent<MobAction>().hp -= player.GetComponent<PlayerAction>().Damage;
 
@@ -17,6 +18,8 @@ public class PlayerAttack : MonoBehaviour {
             {
                 col.gameObject.GetComponent<MobAction>().ani.SetTrigger("die");
                 col.gameObject.GetComponent<MobAction>().state = MOBSTATE.DIE;
+                gamemanager.GetComponent<GameManager>().mobrecreate++;
+                gamemanager.GetComponent<GameManager>().bossCount++;
             }
         }
     }
