@@ -100,7 +100,7 @@ public class MobAction : MonoBehaviour {
             return;
         }
 
-        Invoke("ProcessAttack", 2f);
+        Invoke("ProcessAttack", 2f);        //몬스터 다음공격 딜레이
     }
 
     void ProcessDie()
